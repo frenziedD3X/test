@@ -13,13 +13,22 @@
                 body: data ? JSON.stringify(data) : null
             };
 
-            const response = await fetch(url, options);
-            const result = await response.json();
-            return result;
+            try {
+                const response = await fetch(url, options);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('API call failed:', error);
+                return { error: error.message };
+            }
         }
 
         // Create Item
-        async function createItem() {
+        async function createItem(event) {
+            event.preventDefault(); // Prevent form submission
             const name = document.getElementById('create-name').value;
             const description = document.getElementById('create-description').value;
             const price = parseFloat(document.getElementById('create-price').value);
@@ -43,7 +52,8 @@
         }
 
         // Update Item
-        async function updateItem() {
+        async function updateItem(event) {
+            event.preventDefault(); // Prevent form submission
             const id = document.getElementById('update-id').value;
             const name = document.getElementById('update-name').value;
             const description = document.getElementById('update-description').value;
@@ -55,7 +65,8 @@
         }
 
         // Delete Item
-        async function deleteItem() {
+        async function deleteItem(event) {
+            event.preventDefault(); // Prevent form submission
             const id = document.getElementById('delete-id').value;
             const result = await makeApiCall('DELETE', `http://localhost:3000/items/${id}`);
             document.getElementById('delete-result').textContent = JSON.stringify(result, null, 2);
@@ -68,7 +79,7 @@
 
 <!-- Create Item Form -->
 <h2>Create Item</h2>
-<form onsubmit="event.preventDefault(); createItem();">
+<form onsubmit="createItem(event)">
     <input type="text" id="create-name" placeholder="Item Name" required><br>
     <input type="text" id="create-description" placeholder="Description" required><br>
     <input type="number" id="create-price" placeholder="Price" required><br>
@@ -89,17 +100,21 @@
 
 <!-- Update Item Form -->
 <h2>Update Item</h2>
-<input type="text" id="update-id" placeholder="Item ID" required><br>
-<input type="text" id="update-name" placeholder="Item Name"><br>
-<input type="text" id="update-description" placeholder="Description"><br>
-<input type="number" id="update-price" placeholder="Price"><br>
-<button onclick="updateItem()">Update Item</button>
+<form onsubmit="updateItem(event)">
+    <input type="text" id="update-id" placeholder="Item ID" required><br>
+    <input type="text" id="update-name" placeholder="Item Name"><br>
+    <input type="text" id="update-description" placeholder="Description"><br>
+    <input type="number" id="update-price" placeholder="Price"><br>
+    <button type="submit">Update Item</button>
+</form>
 <pre id="update-result"></pre>
 
 <!-- Delete Item Form -->
 <h2>Delete Item</h2>
-<input type="text" id="delete-id" placeholder="Item ID" required>
-<button onclick="deleteItem()">Delete Item</button>
+<form onsubmit="deleteItem(event)">
+    <input type="text" id="delete-id" placeholder="Item ID" required>
+    <button type="submit">Delete Item</button>
+</form>
 <pre id="delete-result"></pre>
 
 </body>
