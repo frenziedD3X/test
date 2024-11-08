@@ -1,0 +1,23 @@
+<h2>Register</h2>
+<form (ngSubmit)="register()">
+  <label>Username:</label>
+  <input type="text" [(ngModel)]="username" name="username" required />
+
+  <label>Password:</label>
+  <input type="password" [(ngModel)]="password" name="password" required />
+
+  <label>Full Name:</label>
+  <input type="text" [(ngModel)]="displayName" name="displayName" required />
+
+  <button type="submit">Register</button>
+</form>
+
+<!-- Link to Login Page -->
+<div class="link-container">
+  <button class="link-button" routerLink="/login">Already have an account? Login</button>
+</div>
+
+
+
+
+

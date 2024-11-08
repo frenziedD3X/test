@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Mobile Website</title>
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fa;
+      color: #333;
+    }
+    .ui-header {
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+    }
+    .ui-content {
+      padding: 15px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+    }
+    .ui-btn {
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .ui-btn:hover {
+      background-color: #45a049;
+    }
+    input[type="text"], input[type="email"], textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    textarea {
+      height: 120px;
+    }
+    .ui-footer {
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div data-role="page">
+    <div data-role="header">
+      <h1>Welcome to My Mobile Website</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <h2>About Us</h2>
+      <p>This is a simple mobile website built using jQuery Mobile. It's a framework designed to build mobile-friendly websites and apps quickly.</p>
+      <a href="#contact" class="ui-btn ui-btn-inline">Contact Us</a>
+    </div>
+    <div data-role="footer">
+      <p>&copy; 2024 My Mobile Site</p>
+    </div>
+  </div>
+
+  <div data-role="page" id="contact">
+    <div data-role="header">
+      <h1>Contact Us</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <h2>Get in Touch</h2>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" placeholder="Your Name">
+        
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="Your Email">
+        
+        <label for="message">Message:</label>
+        <textarea name="message" id="message" placeholder="Your Message"></textarea>
+        
+        <button type="submit" class="ui-btn ui-btn-b">Send Message</button>
+      </form>
+    </div>
+    <div data-role="footer">
+      <p>&copy; 2024 My Mobile Site</p>
+    </div>
+  </div>
+</body>
+</html>

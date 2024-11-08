@@ -1,0 +1,19 @@
+<h2 *ngIf="displayName">Welcome, {{ displayName }}!</h2>
+<h2 *ngIf="!displayName">Login</h2>
+
+<form (ngSubmit)="login()">
+  <label>Username:</label>
+  <input type="text" [(ngModel)]="username" name="username" required />
+
+  <label>Password:</label>
+  <input type="password" [(ngModel)]="password" name="password" required />
+
+  <button type="submit">Login</button>
+</form>
+
+<!-- Link to Register Page -->
+<div class="link-container">
+  <button class="link-button" routerLink="/register">Don't have an account? Register</button>
+</div>
+
+

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD API</title>
+    <script>
+        // Function to make API calls
+        async function makeApiCall(method, url, data = null) {
+            const options = {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: data ? JSON.stringify(data) : null
+            };
+
+            const response = await fetch(url, options);
+            const result = await response.json();
+            return result;
+        }
+
+        // Create Item
+        async function createItem() {
+            const name = document.getElementById('create-name').value;
+            const description = document.getElementById('create-description').value;
+            const price = parseFloat(document.getElementById('create-price').value);
+            
+            const newItem = { name, description, price };
+            const result = await makeApiCall('POST', 'http://localhost:3000/items', newItem);
+            document.getElementById('create-result').textContent = JSON.stringify(result, null, 2);
+        }
+
+        // Get All Items
+        async function getAllItems() {
+            const result = await makeApiCall('GET', 'http://localhost:3000/items');
+            document.getElementById('read-result').textContent = JSON.stringify(result, null, 2);
+        }
+
+        // Get Specific Item
+        async function getItemById() {
+            const id = document.getElementById('get-id').value;
+            const result = await makeApiCall('GET', `http://localhost:3000/items/${id}`);
+            document.getElementById('get-result').textContent = JSON.stringify(result, null, 2);
+        }
+
+        // Update Item
+        async function updateItem() {
+            const id = document.getElementById('update-id').value;
+            const name = document.getElementById('update-name').value;
+            const description = document.getElementById('update-description').value;
+            const price = parseFloat(document.getElementById('update-price').value);
+            
+            const updatedItem = { name, description, price };
+            const result = await makeApiCall('PUT', `http://localhost:3000/items/${id}`, updatedItem);
+            document.getElementById('update-result').textContent = JSON.stringify(result, null, 2);
+        }
+
+        // Delete Item
+        async function deleteItem() {
+            const id = document.getElementById('delete-id').value;
+            const result = await makeApiCall('DELETE', `http://localhost:3000/items/${id}`);
+            document.getElementById('delete-result').textContent = JSON.stringify(result, null, 2);
+        }
+    </script>
+</head>
+<body>
+
+<h1>CRUD API Interface</h1>
+
+<!-- Create Item Form -->
+<h2>Create Item</h2>
+<form onsubmit="event.preventDefault(); createItem();">
+    <input type="text" id="create-name" placeholder="Item Name" required><br>
+    <input type="text" id="create-description" placeholder="Description" required><br>
+    <input type="number" id="create-price" placeholder="Price" required><br>
+    <button type="submit">Create Item</button>
+</form>
+<pre id="create-result"></pre>
+
+<!-- Get All Items -->
+<h2>Get All Items</h2>
+<button onclick="getAllItems()">Get All Items</button>
+<pre id="read-result"></pre>
+
+<!-- Get Item by ID -->
+<h2>Get Item by ID</h2>
+<input type="text" id="get-id" placeholder="Item ID" required>
+<button onclick="getItemById()">Get Item</button>
+<pre id="get-result"></pre>
+
+<!-- Update Item Form -->
+<h2>Update Item</h2>
+<input type="text" id="update-id" placeholder="Item ID" required><br>
+<input type="text" id="update-name" placeholder="Item Name"><br>
+<input type="text" id="update-description" placeholder="Description"><br>
+<input type="number" id="update-price" placeholder="Price"><br>
+<button onclick="updateItem()">Update Item</button>
+<pre id="update-result"></pre>
+
+<!-- Delete Item Form -->
+<h2>Delete Item</h2>
+<input type="text" id="delete-id" placeholder="Item ID" required>
+<button onclick="deleteItem()">Delete Item</button>
+<pre id="delete-result"></pre>
+
+</body>
+</html>
